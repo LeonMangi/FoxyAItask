@@ -1,12 +1,15 @@
 class TodoPage {
   // Locators
-  elements = {
+  constructor(){ 
+    this.elements = {
     addTodoButton : () => cy.get('#plus-icon'),
     addNewTodoText : () => cy.get('Add new todo'),
     addNewTodoElement : () => cy.get('input[type="text"]'),
     todoListItems : () => cy.get('ul > li'),
     deleteButton : () => cy.get('.fa-trash')
 }
+}
+ 
 
   // Actions
   verifyAddNewTodoDisplayed() {

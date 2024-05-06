@@ -1,18 +1,21 @@
 import TodoPage from '../pageObjects/todoPage';
 
 describe('To-Do List Test', () => {
-  const todoPage = new TodoPage();
   
+  const todoPage = new TodoPage();
+
   beforeEach(() => {
-    cy.visit('http://webdriveruniversity.com/To-Do-List/index.html'); 
+    cy.visit('http://webdriveruniversity.com/To-Do-List/index.html');
   });
 
   describe('Basic Functionalities', () => {
     it('2. Verify that "Add new todo" is displayed by default', () => {
       todoPage.verifyAddNewTodoDisplayed();
+
     });
 
     it('3. Clicks on "+" and verifies "Add new todo" is not displayed', () => {
+      todoPage.verifyAddNewTodoDisplayed();
       todoPage.clickAddButton();
       todoPage.verifyAddNewTodoHidden();
     });
