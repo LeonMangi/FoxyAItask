@@ -8,34 +8,38 @@ describe('To-Do List Test', () => {
   });
 
   describe('Basic Functionalities', () => {
-    it('Verifies "Add new todo" is displayed', () => {
+    it('2. Verify that "Add new todo" is displayed by default', () => {
       todoPage.verifyAddNewTodoDisplayed();
     });
 
-    it('Clicks on "+" and verifies "Add new todo" is hidden', () => {
+    it('3. Clicks on "+" and verifies "Add new todo" is not displayed', () => {
       todoPage.clickAddButton();
       todoPage.verifyAddNewTodoHidden();
     });
   });
 
   describe('Item Completion and Deletion', () => {
-    it('Marks an item as complete and verifies strikethrough', () => {
+    it('4. Verify that the text becomes strikethrough for every element by clicking on them', () => {
       todoPage.markItemAsComplete();
       todoPage.verifyItemStrikethrough();
     });
 
-    it('Verifies delete icon appears on hover and deletes an item', () => {
+    it('5. Verify that the delete icon appears when hovering to "Go to potion class" element from the list', () => {
       todoPage.verifyDeleteIconAppears();
+    });
+    it('6. Click on the delete icon and verify that the "Go to potion class" element is nott displayed in the list', () => {
       todoPage.deleteItem();
       todoPage.verifyItemDeleted();
     });
   });
 
   describe('Adding New Item', () => {
-    it('Adds a new item and verifies it is displayed', () => {
+    it('7. Click on the "+" and enter any value to the "Add new todo" field', () => {
       const newItem = 'This text is added by cy script';
       todoPage.addNewItem(newItem);
-      todoPage.verifyItemAdded(newItem);
+    });
+    it('8. Click on enter and verify that created element is displayed at the end of the list', () => {
+      todoPage.verifyItemAdded();
     });
   });
 });

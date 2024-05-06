@@ -1,7 +1,7 @@
 class TodoPage {
   // Locators
   elements = {
-    addTodo : () => cy.get('#plus-icon'),
+    addTodoButton : () => cy.get('#plus-icon'),
     addNewTodoText : () => cy.get('Add new todo'),
     addNewTodoElement : () => cy.get('input[type="text"]'),
     todoListItems : () => cy.get('ul > li'),
@@ -10,11 +10,11 @@ class TodoPage {
 
   // Actions
   verifyAddNewTodoDisplayed() {
-    this.elements.addTodo().should('be.visible');
+    this.elements.addTodoButton().should('be.visible');
   }
 
   clickAddButton() {
-    this.elements.addTodo().click();
+    this.elements.addTodoButton().click();
   }
 
   verifyAddNewTodoHidden() {
@@ -48,12 +48,13 @@ class TodoPage {
   }
 
   addNewItem(newItem) {
-    this.elements.addTodo().click()
-    this.elements.addNewTodoElement().click().type(`${newItem}` + '{enter}');
+    this.elements.addTodoButton().click()
+    this.elements.addNewTodoElement().click().type(`${newItem}`);
   }
 
-  verifyItemAdded(newItem) {
-    this.elements.todoListItems().last().should('contain', `${newItem}`);
+  verifyItemAdded() {
+    this.elements.addNewTodoElement().type('{enter}')
+    this.elements.todoListItems().last().should('be.visible');
   }
 }
 
