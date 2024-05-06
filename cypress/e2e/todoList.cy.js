@@ -27,7 +27,7 @@ describe('To-Do List Test', () => {
     it('5. Verify that the delete icon appears when hovering to "Go to potion class" element from the list', () => {
       todoPage.verifyDeleteIconAppears();
     });
-    it('6. Click on the delete icon and verify that the "Go to potion class" element is nott displayed in the list', () => {
+    it('6. Click on the delete icon and verify that the "Go to potion class" element is not displayed in the list', () => {
       todoPage.deleteItem();
       todoPage.verifyItemDeleted();
     });
@@ -38,7 +38,7 @@ describe('To-Do List Test', () => {
       const newItem = 'This text is added by cy script';
       todoPage.addNewItem(newItem);
     });
-    it('8. Click on enter and verify that created element is displayed at the end of the list', () => {
+    it('8. Click on enter and verify that created element is displayed at the end of the list', () => { // should be part of the 7. due to nature of beforeEach
       todoPage.verifyItemAdded();
     });
   });

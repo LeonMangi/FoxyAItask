@@ -44,7 +44,7 @@ class TodoPage {
   }
 
   verifyItemDeleted() {
-    this.elements.todoListItems().should('not.contain', this.elements.addNewTodoText());
+    this.elements.todoListItems().should('not.contain', 'Go to potion class');
   }
 
   addNewItem(newItem) {
