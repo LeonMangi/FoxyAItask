@@ -2,34 +2,40 @@ import TodoPage from '../pageObjects/todoPage';
 
 describe('To-Do List Test', () => {
   const todoPage = new TodoPage();
+  
+  beforeEach(() => {
+    cy.visit('http://webdriveruniversity.com/To-Do-List/index.html'); 
+  });
 
-  it('Verifies functionalities of To-Do List', () => {
-    // 1. Go to the site
-    cy.visit('http://webdriveruniversity.com/To-Do-List/index.html');
+  describe('Basic Functionalities', () => {
+    it('Verifies "Add new todo" is displayed', () => {
+      todoPage.verifyAddNewTodoDisplayed();
+    });
 
-    // 2. Verify "Add new todo" is displayed
-    todoPage.verifyAddNewTodoDisplayed();
+    it('Clicks on "+" and verifies "Add new todo" is hidden', () => {
+      todoPage.clickAddButton();
+      todoPage.verifyAddNewTodoHidden();
+    });
+  });
 
-    // 3. Click on "+" and verify "Add new todo" is not displayed
-    todoPage.clickAddButton();
-    todoPage.verifyAddNewTodoHidden();
+  describe('Item Completion and Deletion', () => {
+    it('Marks an item as complete and verifies strikethrough', () => {
+      todoPage.markItemAsComplete();
+      todoPage.verifyItemStrikethrough();
+    });
 
-    // 4. Verify that the text becomes strikethrough for every element by clicking on them
-    todoPage.markItemAsComplete(0);
-    todoPage.verifyItemStrikethrough(0);
+    it('Verifies delete icon appears on hover and deletes an item', () => {
+      todoPage.verifyDeleteIconAppears();
+      todoPage.deleteItem();
+      todoPage.verifyItemDeleted();
+    });
+  });
 
-    // 5. Verify that the delete icon appears when hovering to "Go to potion class" element from the list
-    todoPage.verifyDeleteIconAppears();
-
-    // 6. Click on the delete icon and verify that the "Go to potion class" element isn't displayed in the list
-    todoPage.deleteItem();
-    todoPage.verifyItemDeleted();
-
-    // 7. Click on the "+" and enter any value to the "Add new todo" field
-    const newItem = 'Buy groceries';
-    todoPage.addNewItem(newItem);
-
-    // 8. Click on enter and verify that created element is displayed at the end of the list
-    todoPage.verifyItemAdded(newItem);
+  describe('Adding New Item', () => {
+    it('Adds a new item and verifies it is displayed', () => {
+      const newItem = 'This text is added by cy script';
+      todoPage.addNewItem(newItem);
+      todoPage.verifyItemAdded(newItem);
+    });
   });
 });
