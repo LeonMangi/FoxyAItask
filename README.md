@@ -39,3 +39,7 @@ npm run cy:run-docker
 ```
 
 ## Additional information regarding the task
+
+Test cases can be designed differently for Page Object Model, or another automation architecture model can be considered. Some of the steps could be merged into the steps before.
+
+Cypress is very fast for testing web applications but there are some disadvantages to Cypress with POM: need to use beforeEach which makes sessions restarted when moving through describe/it functions, also with Cypress it is hard to move to another tab.

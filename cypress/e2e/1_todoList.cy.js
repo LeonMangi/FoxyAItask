@@ -39,7 +39,7 @@ describe('To-Do List Test', () => {
   describe('Adding New Item', () => {
     it('7. Click on the "+" and enter any value to the "Add new todo" field', () => {
       const newItem = 'This text is added by cy script';
-      todoPage.addNewItem(newItem);
+      todoPage.addNewToDo(newItem);
     });
     it('8. Click on enter and verify that created element is displayed at the end of the list', () => { // should be part of the 7. due to nature of beforeEach
       todoPage.verifyItemAdded();

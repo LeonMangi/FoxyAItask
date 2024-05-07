@@ -50,7 +50,7 @@ class TodoPage {
     this.elements.todoListItems().should('not.contain', 'Go to potion class');
   }
 
-  addNewItem(newItem) {
+  addNewToDo(newItem) {
     this.elements.addTodoButton().click()
     this.elements.addNewTodoElement().click().type(`${newItem}`);
   }
