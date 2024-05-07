@@ -3,7 +3,7 @@
 
 This is a solution and guide on how to start testing the suite using Node.js and Cypress
 
-For the first time [installation](https://docs.cypress.io/guides/getting-started/installing-cypress#What-you-ll-learn)
+For the first time Cypress [installation](https://docs.cypress.io/guides/getting-started/installing-cypress#What-you-ll-learn)
 
 ## Installation
 
@@ -30,6 +30,12 @@ To run Cypress tests in headless mode, use the following command:
 
 ```bash
 npm run cy:run
+```
+
+To run Cypress test via docker, use the following command:
+
+```bash
+npm run cy:run-docker
 ```
 
 ## Additional information regarding the task
