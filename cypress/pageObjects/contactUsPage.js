@@ -11,7 +11,7 @@ class ContactUsPage {
     errorMessageAllFieldsRequired: () => cy.contains('Error: all fields are required'),
     errorMessageInvalidEmail: () => cy.contains('Error: Invalid email address'),
     errorMessageInvalidEmail2: () => cy.contains('Invalid email address'),
-    successMessage: () => cy.get(this.successMessage),
+    successMessage: () => cy.contains('Thank You for your Message!'),
     resetButton: () => cy.get('input[type="reset"]')
   }
 }  
@@ -26,24 +26,43 @@ class ContactUsPage {
     this.elements.commentsField().should('be.empty');
   }
 
+  verifyFields() {
+    this.elements.firstNameField().should('be.visible');
+    this.elements.lastNameField().should('be.visible');
+    this.elements.emailField().should('be.visible');
+    this.elements.commentsField().should('be.visible');
+  }
+
   verifySubmitButtonActive() {
-    this.elements.submitButton().should('not.be.disabled');
+    this.elements.submitButton().should('not.be.disabled'); // Form Buttons verification can be done in one function, or chained on click
   }
 
   clickSubmit() {
     this.elements.submitButton().click();
   }
 
+  clickReset() {
+    this.elements.resetButton().should('be.visible').click();
+  }
+
   verifyRedirectToContactUsPage() {
     cy.url().should('eq', 'https://webdriveruniversity.com/Contact-Us/contact_us.php');
   }
 
-  verifyErrorMessage(message) {
-    this.elements.errorMessageAllFieldsRequired().should('contain', message) || this.elements.errorMessageInvalidEmail().should('contain', message) || this.elements.errorMessageInvalidEmail2().should('contain', message);
+  verifyAllFieldsRequiredErrorMessage(message) {
+    this.elements.errorMessageAllFieldsRequired().should('contain', message) // verification should all be done in one function, need better attributes for the error messages
+  }
+
+  verifyInvalidEmailErrorMessage(message){
+    this.elements.errorMessageInvalidEmail().should('contain', message)
+  }
+
+  verifyInvalidEmailErrorMessage2(message){
+    this.elements.errorMessageInvalidEmail2().should('contain', message)
   }
 
   fillFirstName(firstName) {
-    this.elements.firstNameField().type(firstName);
+    this.elements.firstNameField().type(firstName); // fills can be refactored as one large function
   }
 
   fillLastName(lastName) {
@@ -73,9 +92,6 @@ class ContactUsPage {
     this.elements.emailField().should('have.value', faker.internet.email()); // Pre-filled email might be valid
   }
 
-  clickReset() {
-    this.elements.resetButton().click();
-  }
 }
 
 export default ContactUsPage;

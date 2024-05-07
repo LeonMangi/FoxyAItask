@@ -8,7 +8,7 @@ describe('Contact Us Form Test', () => {
         cy.visit('https://webdriveruniversity.com/Contact-Us/contactus.html');
     });
 
-describe('Initial Page Load and Submit with Empty Fields', () => {
+describe('Initial Page Load and Submit form with Empty Fields', () => {
         it('2. Verify that "First Name", "Last Name", "Email Address" and "Comments" are empty', () => {
             contactUsPage.verifyEmptyFields();
         });
@@ -21,12 +21,15 @@ describe('Initial Page Load and Submit with Empty Fields', () => {
             contactUsPage.verifyRedirectToContactUsPage();
 
             // 5. Verify that texts "Error: all fields are required" and "Error: Invalid email address" is displayed on the page - should be merged with step 3
-            contactUsPage.verifyErrorMessage('all fields are required');
-            contactUsPage.verifyErrorMessage('Error: Invalid email address')
+            contactUsPage.verifyAllFieldsRequiredErrorMessage('all fields are required');
+            contactUsPage.verifyInvalidEmailErrorMessage('Error: Invalid email address');
         });
-    });
-describe('Fill the form with correct data but invalid email', () => {
-        it('6. & 7.', () => {
+});
+
+describe('Fill the form with correct data but invalid email and confirm the user is redirected to contact us page with an error', () => {
+        it('6. Go back to the contact us page: fill form with invalid email and check for error', () => {
+
+            // 7. Fill in the "First Name", "Last Name" and "Comments" fields using the faker library - should be merged to step 6
             const firstName = faker.person.firstName();
             const lastName = faker.person.lastName();
             const lorem = faker.lorem.sentence();
@@ -34,53 +37,54 @@ describe('Fill the form with correct data but invalid email', () => {
             contactUsPage.fillFirstName(firstName);
             contactUsPage.fillLastName(lastName);
             contactUsPage.fillComments(lorem);
+
+            // 8. Fill in the "Email Address" field with an invalid value - should be merged to step 6
+            const email = "email.email"
+
+            contactUsPage.fillEmail(email);
+
+            // 9. Click on submit button and verify that the user is redirected to the http://webdriveruniversity.com/Contact-Us/contact_us.php page - should be merged to step 6
+            contactUsPage.clickSubmit();
+            contactUsPage.verifyRedirectToContactUsPage();
+
+            // 10. Verify that the text "Error: Invalid email address" is displayed on the page - should be merged to step 6
+            contactUsPage.verifyInvalidEmailErrorMessage('Error: Invalid email address');
         });
-    });
 });
-// //
-//     describe('Submit with Invalid Email', () => {
-//         it('Fills in invalid email and submits', () => {
-//             contactUsPage.fillEmail('invalid_email');
-//             contactUsPage.clickSubmit();
-//         });
 
-//         it('Verifies error message for invalid email', () => {
-//             contactUsPage.verifyErrorMessage('Invalid email address');
-//         });
-//     });
+describe('Fill the forms with data and confirm the user is redirected to thank you page', () => {
+        it('11. Go back to the contact us page: fill form correctly and go back to check reset form funcionality', () => {
 
-//     describe('Submit with Valid Data', () => {
-//         it('Fills in valid data and submits', () => {
-//             const firstName = faker.firstName.firstName();
-//             const lastName = faker.lastName.lastName();
-//             const lorem = faker.lorem.lorem();
-//             const email = faker.internet.email();
+            // 12. Fill in the "Email Address" field with a valid value (email should contain name, @, dot, and valid domain) - should be merged to step 11
+            const firstName = faker.person.firstName();
+            const lastName = faker.person.lastName();
+            const lorem = faker.lorem.sentence();
+            const email = faker.internet.email();
 
-//             contactUsPage.fillFirstName(faker.firstName.firstName());
-//             contactUsPage.fillLastName(faker.lastName.lastName());
-//             contactUsPage.fillComments(faker.lorem.sentence());
-//             contactUsPage.fillEmail(faker.internet.email());
-//             contactUsPage.clickSubmit();
-//         });
+            contactUsPage.fillFirstName(firstName);
+            contactUsPage.fillLastName(lastName);
+            contactUsPage.fillComments(lorem);
+            contactUsPage.fillEmail(email);
 
-//         it('Verifies redirection to thank you page and success message', () => {
-//             contactUsPage.verifyRedirectToThankYouPage();
-//             contactUsPage.verifySuccessMessage();
-//         });
-//     });
+            // 13. Click on the "Submit" button and verify that the user is redirected to the thank you page - should be merged to step 11
+            contactUsPage.clickSubmit();
+            contactUsPage.verifyRedirectToThankYouPage();
 
-//     describe('Verify Pre-filled Fields and Reset Functionality', () => {
-//         it('Verifies pre-filled fields after successful submission', () => {
-//             contactUsPage.verifyPreFilledFields();
-//         });
+            // 14. Verify that the text "Thank You for your Message!" is displayed on the page
+            contactUsPage.verifySuccessMessage();
 
-//         it('Verifies submit button is active and clicks reset', () => {
-//             contactUsPage.verifySubmitButtonActive();
-//             contactUsPage.clickReset();
-//         });
+            // 15. Go back to the contact us page
+            cy.go('back')
 
-//         it('Verifies that fields are empty after reset', () => {
-//             contactUsPage.verifyEmptyFields();
-//         });
-//     });
-// });
+            // 16. Verify that values for all fields are pre-filled
+            contactUsPage.verifyFields();
+
+            // 17. Verify that the "Reset" button is active and click on it
+            contactUsPage.clickReset();
+
+            // 18. Verify that "First Name", "Last Name", "Email Address" and "Comments" are empty
+            contactUsPage.verifyEmptyFields();
+        });
+});
+
+});
